@@ -12,6 +12,7 @@ const app = express()
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
+/** Alternative method to connect mongo Atlas
 // DB config
 const MongoClient = require('mongodb').MongoClient;
 const uri = require('./config/keys').mongoURI;
@@ -19,6 +20,12 @@ const client = new MongoClient(uri, { useNewUrlParser: true });
 
 // Connect to MongoDB
 client.connect()
+    .then(() => console.log("MongoDB Connected"))
+    .catch(err => console.log(err))
+ */
+
+const connectionString = require('./config/keys').mongoURI;
+mongoose.connect(connectionString, { useNewUrlParser: true })
     .then(() => console.log("MongoDB Connected"))
     .catch(err => console.log(err))
 
